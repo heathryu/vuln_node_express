@@ -7,8 +7,14 @@ on:
     branches: [main]
 
 jobs:
-  builder:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: yarn
+      - run: nohup yarn start &
+      - name: Run HawkScan
+        uses: stackhawk/hawkscan-action@v1.2.1
+        with:
+          apiKey: ${{ secrets.STACKHAWK_API_KEY }}
+
